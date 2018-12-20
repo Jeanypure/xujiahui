@@ -86,6 +86,7 @@ class SampleSearch extends Sample
             'write_date' => $this->write_date,
             'minister_result' => $this->minister_result,
             'pd_sku' => $this->pd_sku,
+            'has_pay' => $this->has_pay,
         ]);
 
         $query->andFilterWhere(['like', 'pay_way', $this->pay_way])

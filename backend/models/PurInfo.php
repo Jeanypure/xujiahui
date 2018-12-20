@@ -44,25 +44,10 @@ use Yii;
  */
 class PurInfo extends \yii\db\ActiveRecord
 {
-    public $view_status;
-    public $submit_manager;
-    public $result;
-    public  $spur_info_id;
-    public  $is_agreest;
-    public  $create_date;
-    public  $pay_amount;
-    public  $has_arrival;
-    public  $minister_result;
-    public  $write_date;
-    public  $unit_price;
-    public  $weight;
-    public  $grade;
-    public  $audit_team_result;
-    public  $purchaser_result;
-    public  $is_diff;
-    public  $pd_sku;
-
-
+    public $view_status,$submit_manager,$result, $spur_info_id, $is_agreest, $create_date,$pay_amount,$has_arrival,
+        $minister_result, $write_date, $unit_price, $weight, $grade, $audit_team_result, $purchaser_result, $is_diff,
+        $pd_sku,$payer,$sample_return,$is_purchase,$sure_purchase_time,$pay_at,$fact_pay_amount,$sample_submit1,
+        $sample_submit2,$submit1_at,$submit2_at,$cancel1_at,$cancel2_at,$has_pay,$is_quality;
     /**
      * @inheritdoc
      */
@@ -78,7 +63,7 @@ class PurInfo extends \yii\db\ActiveRecord
     {
 
         return [
-            [['is_purchase','trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
+            [['trading_company','source','brocast_status','is_quality','sample_submit1','sample_submit2','pur_complete_status','is_assign','junior_submit','pur_group', 'pd_purchase_num', 'parent_product_id','preview_status'], 'integer'],
             [['trading_company', 'bill_type','pd_title','pd_title_en','pd_package','pd_length', 'pd_width', 'pd_height','pd_weight',
                 'pd_pur_costprice','bill_tax_rebate','retail_price','pd_purchase_num','hs_code',
                 'has_shipping_fee','is_patent_right','is_third_party_abroad_right','promise_rights','special_auth_FDA'], 'required'],
@@ -97,8 +82,7 @@ class PurInfo extends \yii\db\ActiveRecord
             ['amazon_url','url','defaultScheme' => 'http'],
             ['else_url','url','defaultScheme' => 'http'],
             ['url_1688','url','defaultScheme' => 'http'],
-            [['pd_sku','pd_create_time','write_date','purchaser_send_time','sure_purchase_time'], 'safe'],
-            [['sample_return', ], 'integer'],
+            [['pd_sku','pd_create_time','write_date','purchaser_send_time'], 'safe'],
             [['hs_code'],'match','pattern'=>'^\d{10}$','message'=>'请输入正确的HS编码'],
 
         ];
@@ -174,8 +158,6 @@ class PurInfo extends \yii\db\ActiveRecord
             'submit2_at' => '提交财务时间',
             'is_agreest' => '是否同意付费',
             'create_date' => '经理评审时间',
-            'is_purchase' => '确定采购?',
-            'sample_return' => '确定退回样品?',
             'trading_company' => '供应商是否是贸易公司',
             'has_arrival' => '是否到货?',
             'minister_result' => '部长判断',
@@ -186,6 +168,7 @@ class PurInfo extends \yii\db\ActiveRecord
             'is_third_party_abroad_right' => '国外第三方对此产品是否有专利权或商标权',
             'promise_rights' => '供应商承诺没有知识产权方面问题',
             'special_auth_FDA' => '是否需要特殊认证FDA或者电器CE Rosh',
+            'is_purchase'=>'采购?'
 
         ];
     }

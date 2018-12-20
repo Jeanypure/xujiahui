@@ -43,14 +43,16 @@ class Sample extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['purchaser_result','spur_info_id','fee_return','is_agreest'], 'required'],
+            [['purchaser_result','spur_info_id','fee_return','is_agreest',
+                'procurement_cost', 'sample_freight', 'pay_amount','pay_way','pd_sku'], 'required'],
             [['audit_team_result','minister_result','has_arrival','for_free', 'spur_info_id', 'is_audit', 'is_agreest',  'fee_return', 'audit_mem1', 'applicant'], 'integer'],
             [['procurement_cost', 'sample_freight', 'else_fee', 'pay_amount'], 'number'],
-            [['write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
+            [['payer','sample_return','is_purchase','sure_purchase_time','pay_at','fact_pay_amount','sample_submit1',
+                'sample_submit2','submit1_at','submit2_at','cancel1_at','cancel2_at','has_pay','is_quality',
+                'write_date','arrival_date','create_date', 'lastop_date'], 'safe'],
             [['pay_way', 'mark'], 'string', 'max' => 500],
             [['audit_team_reason','minister_reason'], 'string', 'max' => 100],
             [['pd_sku',], 'string', 'max' => 60],
-            [['procurement_cost', 'sample_freight', 'pay_amount','pay_way','pd_sku'], 'required'],
 
         ];
     }
@@ -90,6 +92,7 @@ class Sample extends \yii\db\ActiveRecord
             'purchaser_result' => '采购判断',
             'audit_team_reason' => '审核组备注',
             'pd_sku' => 'SKU',
+
         ];
     }
 
