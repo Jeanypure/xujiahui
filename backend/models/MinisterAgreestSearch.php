@@ -54,8 +54,8 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info2`.pur_info_id,
                     `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
                     `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
-                    `pur_info2`.sample_submit2,`pur_info2`.is_quality,`pur_info2`.submit2_at,`pur_info2`.is_purchase,`pur_info2`.submit2_at,
-                    `pur_info2`.submit1_at,`pur_info2`.sample_return,`pur_info2`.has_pay,`pur_info2`.payer,`pur_info2`.pay_at,  
+                    `sample2`.sample_submit2,`sample2`.is_quality,`sample2`.submit2_at,`sample2`.is_purchase,`sample2`.submit2_at,
+                    `sample2`.submit1_at,`sample2`.sample_return,`sample2`.has_pay,`sample2`.payer,`sample2`.pay_at,  
                     `sample2`.spur_info_id,`sample2`.is_agreest,`sample2`.for_free,`sample2`.has_arrival,`sample2`.minister_result,`sample2`.pd_sku,`sample2`.write_date'
                 ])
                 ->joinWith('sample2')
@@ -70,8 +70,8 @@ class MinisterAgreestSearch extends PurInfo
                     `pur_info2`.pur_info_id,
                     `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
                     `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
-                    `pur_info2`.sample_submit2,`pur_info2`.is_quality,`pur_info2`.submit1_at,`pur_info2`.is_purchase, `pur_info2`.submit2_at,
-                    `pur_info2`.submit1_at,`pur_info2`.sample_return,`pur_info2`.has_pay,`pur_info2`.payer,`pur_info2`.pay_at,   
+                    `sample2`.sample_submit2,`sample2`.is_quality,`sample2`.submit2_at,`sample2`.is_purchase,`sample2`.submit2_at,
+                    `sample2`.submit1_at,`sample2`.sample_return,`sample2`.has_pay,`sample2`.payer,`sample2`.pay_at,   
                     `sample2`.spur_info_id,`sample2`.is_agreest,`sample2`.for_free,`sample2`.has_arrival,`sample2`.minister_result,`sample2`.pd_sku,`sample2`.write_date'])
                 ->joinWith('sample2')
                 ->andWhere(['pur_group'=>$pur_group])
