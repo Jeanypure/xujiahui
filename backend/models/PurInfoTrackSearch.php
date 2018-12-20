@@ -49,16 +49,16 @@ class PurInfoTrackSearch extends PurInfo
         if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
             $query = PurInfo::find()
                 ->select(['
-                    `pur_info`.pur_info_id,
-                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
-                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                   `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,
-                   `pur_info`.payer,`pur_info`.has_pay,`pur_info`.pay_at,`pur_info`.submit2_at,`pur_info`.sample_return,
-                   `pur_info`.is_purchase,
-                    `sample`.write_date,`sample`.spur_info_id,`sample`.create_date,
-                    `sample`.is_agreest,`sample`.pd_sku,`sample`.purchaser_result'])
-                ->joinWith('sample')
-                ->andWhere(['not',['sample.spur_info_id'=>null]])
+                    `pur_info2`.pur_info_id,
+                    `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
+                    `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
+                   `pur_info2`.sample_submit1,`pur_info2`.is_quality,`pur_info2`.submit1_at,
+                   `pur_info2`.payer,`pur_info2`.has_pay,`pur_info2`.pay_at,`pur_info2`.submit2_at,`pur_info2`.sample_return,
+                   `pur_info2`.is_purchase,
+                    `sample2`.write_date,`sample2`.spur_info_id,`sample2`.create_date,
+                    `sample2`.is_agreest,`sample2`.pd_sku,`sample2`.purchaser_result'])
+                ->joinWith('sample2')
+                ->andWhere(['not',['sample2.spur_info_id'=>null]])
                 ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
                 ->orderBy('pur_info_id desc')
 
@@ -66,16 +66,16 @@ class PurInfoTrackSearch extends PurInfo
         }else{
             $query = PurInfo::find()
                 ->select(['
-                    `pur_info`.pur_info_id,
-                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
-                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                     `pur_info`.sample_submit1,`pur_info`.is_quality,`pur_info`.submit1_at,
-                   `pur_info`.payer,`pur_info`.has_pay,`pur_info`.pay_at,`pur_info`.submit2_at,`pur_info`.sample_return,
-                   `pur_info`.is_purchase,
-                    `sample`.write_date, `sample`.spur_info_id,`sample`.create_date,`sample`.is_agreest,`sample`.pd_sku,
-                    `sample`.purchaser_result'])
-                ->joinWith('sample')
-                ->andWhere(['not',['sample.spur_info_id'=>null]])
+                    `pur_info2`.pur_info_id,
+                    `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
+                    `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
+                     `pur_info2`.sample_submit1,`pur_info2`.is_quality,`pur_info2`.submit1_at,
+                   `pur_info2`.payer,`pur_info2`.has_pay,`pur_info2`.pay_at,`pur_info2`.submit2_at,`pur_info2`.sample_return,
+                   `pur_info2`.is_purchase,
+                    `sample2`.write_date, `sample2`.spur_info_id,`sample2`.create_date,`sample2`.is_agreest,`sample2`.pd_sku,
+                    `sample2`.purchaser_result'])
+                ->joinWith('sample2')
+                ->andWhere(['not',['sample2.spur_info_id'=>null]])
                 ->andWhere(['purchaser'=>$username])
                 ->orFilterWhere(['old_purchaser'=>$username])
                 ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
@@ -106,8 +106,8 @@ class PurInfoTrackSearch extends PurInfo
         }
 
         if (!empty($this->write_date)) {
-            $query->andFilterCompare('`sample`.write_date', explode('/', $this->write_date)[0], '>=');//起始时间
-            $query->andFilterCompare('`sample`.write_date', explode('/', $this->write_date)[1], '<');//结束时间
+            $query->andFilterCompare('`sample2`.write_date', explode('/', $this->write_date)[0], '>=');//起始时间
+            $query->andFilterCompare('`sample2`.write_date', explode('/', $this->write_date)[1], '<');//结束时间
         }
 
 
