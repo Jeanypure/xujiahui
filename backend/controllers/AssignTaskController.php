@@ -133,6 +133,11 @@ class AssignTaskController extends Controller
         echo '选择了'.count($ids).'个产品请分配!';
     }
 
+    /**
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
+     * 选择采购
+     */
     public function actionPickMember()
     {
 
@@ -154,10 +159,12 @@ class AssignTaskController extends Controller
                 }
                 $ids_str = rtrim($pur_ids,',');
             }
+            $pur_group = Yii::$app->db->createCommand("SELECT sub_company from company WHERE leader= '$member'")
+                        ->queryOne();
             try{
                 $result = Yii::$app->db->createCommand(" 
-                            update `pur_info` set `saler`= '$member',`is_assign`=1  where pur_info_id in ($ids_str);
-                         ")->execute();
+                            update `pur_info` set `saler`= '$member',`pur_group`= $pur_group[sub_company],`is_assign`=1
+                            where pur_info_id in ($ids_str);")->execute();
             }catch(Exception $e){
                 throw new Exception();
             }
@@ -171,7 +178,6 @@ class AssignTaskController extends Controller
                 $new_array = array_merge($member2,$val);
                 $arr[] = $new_array;
                 array_push($arr,['Becky',$value]);
-
             }
             $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
 
