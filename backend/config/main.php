@@ -129,10 +129,11 @@ return [
         'allowActions' => [
             //这里是允许访问的action
             //controller/action
-            'site/*',
-            'winit/*',
-            'bargain/obtain-data/*',
-            'bargain/requisition-request/*',
+            '*'
+//            'site/*',
+//            'winit/*',
+//            'bargain/obtain-data/*',
+//            'bargain/requisition-request/*',
 
         ]
     ],
