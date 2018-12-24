@@ -19,7 +19,7 @@ class AssignTaskSearch extends PurInfo
     {
         return [
             [['is_assign','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
-            [['pd_create_time','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package',
+            [['saler','pd_create_time','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package',
                 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url',
                 'amazon_url', 'url_1688', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'source', 'member'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
@@ -112,6 +112,7 @@ class AssignTaskSearch extends PurInfo
             ->andFilterWhere(['like', 'gross_profit', $this->gross_profit])
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'source', $this->source])
+            ->andFilterWhere(['like', 'saler', $this->saler])
             ->andFilterWhere(['like', 'member', $this->member]);
 
         return $dataProvider;

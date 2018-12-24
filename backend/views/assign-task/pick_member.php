@@ -19,13 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $form = ActiveForm::begin(); ?>
 
 
-        <?= $form->field($model, 'member',
+        <?= $form->field($model, 'saler',
             [
                 'options'=>['class' => 'form-group form-md-radios'],
                 'template' => '{label}<div class="col-md-offset-1 md-radio-inline">{input}</div>{hint}{error}',
             ]
             )->radioList($member,
-            [   'item' => function($index, $label, $name, $checked, $value)
+            ['item' => function($index, $label, $name, $checked, $value)
             {
                 $checked=$checked? "checked": "";
                 $return = '<div class="md-radio">';
@@ -33,8 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $return .= '<label for="' . $name . $value . '"><span></span><span class="check"></span><span class="box"></span>' . ucwords($label) . '</label>';
                 $return .= '</div></br>';
                 return $return;
-            }
-            ]
+            }]
 
             ) ?>
 

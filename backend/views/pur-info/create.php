@@ -206,11 +206,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
-    <?php
+
+<?php
 
     //css 表单input 变圆润
 
-        $this->registerJs("
+    $this->registerJs("
         $(function () {
             $('.form-control').css('border-radius','7px')
         }); 
@@ -236,12 +237,9 @@ $this->params['breadcrumbs'][] = $this->title;
             $('.label-require').html(function(_,html) {
                 return html.replace(/(.*?)/, "<span style = 'color:red'><big>*$1</big></span>");
             });
-
-
         });
-        
 JS;
-        $this->registerJs($readonly_js);
+    $this->registerJs($readonly_js);
     ?>
 <?php
 //计算是否是大件

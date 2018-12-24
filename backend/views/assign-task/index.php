@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'group'=>true,  // enable grouping
 
             ],
-            'member',
+            'saler',
             [
                 'attribute' => 'pd_create_time',
                 'headerOptions' => ['width' => '12%'],

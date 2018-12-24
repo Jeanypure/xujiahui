@@ -143,8 +143,7 @@ class AssignTaskController extends Controller
         $model = new PurInfo();
 
         if ($model->load(Yii::$app->request->post()) ) {
-           $member = Yii::$app->request->post()["PurInfo"]["member"];
-
+            $member = Yii::$app->request->post()["PurInfo"]["saler"];
             if(!empty(Yii::$app->session['ids'])){
                 $pur_info_ids =  Yii::$app->session['ids'];
                 $pur_ids = '';
@@ -155,13 +154,11 @@ class AssignTaskController extends Controller
                 }
                 $ids_str = rtrim($pur_ids,',');
             }
-
             try{
-                $result =   Yii::$app->db->createCommand(" 
-                            update `pur_info` set `member`= '$member',`is_assign`=1  where pur_info_id in ($ids_str);
+                $result = Yii::$app->db->createCommand(" 
+                            update `pur_info` set `saler`= '$member',`is_assign`=1  where pur_info_id in ($ids_str);
                          ")->execute();
-            }
-            catch(Exception $e){
+            }catch(Exception $e){
                 throw new Exception();
             }
 
@@ -173,23 +170,20 @@ class AssignTaskController extends Controller
                 $val = [$value];
                 $new_array = array_merge($member2,$val);
                 $arr[] = $new_array;
+                array_push($arr,['Becky',$value]);
 
             }
-
             $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
 
             $count_num = Yii::$app->db->createCommand("
             select count(*) as number from `preview` where `product_id` in ($ids_str) 
             and `member2` in ( SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1)
-            
             ")->queryOne();
 
             if($count_num['number']!= 0){ //更新原来的member2
                 $preview_id = Yii::$app->db->createCommand("
-            select preview_id from `preview` where `product_id` in (467) 
-            and `member2` in ( SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1)
-            
-            ")->queryAll();
+            select preview_id from `preview` where `product_id` in ($ids_str) 
+            and `member2` in ( SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1)")->queryAll();
                 if(!empty($preview_id)){
                     $preid = '';
                     $previewid = '';
@@ -198,7 +192,6 @@ class AssignTaskController extends Controller
                     }
                     $preid  = rtrim($previewid,',');
                 }
-
 
                 try{//分配的同时 preview无此产品 插入  存在则更新preview表
                     $update_member = Yii::$app->db->createCommand("
@@ -214,23 +207,19 @@ class AssignTaskController extends Controller
             }else{//插入新记录
                 try{//分配的同时 preview无此产品 插入  存在则更新preview表
                     $into_preview = Yii::$app->db->createCommand("$res")->execute();
-                }
-                catch(Exception $e){
+                }catch(Exception $e){
                     throw new Exception();
                 }
             }
-
           if(empty($result)){
               unset(Yii::$app->session['ids']);
           }
-
             return $this->redirect(['index']);
         }
 
         $mem=[];
         foreach($audit_member as $k=>$v){
             $mem[$v['purchaser']] = $v['purchaser'];
-
         }
         return $this->renderAjax('pick_member', [
             'model' => $model,

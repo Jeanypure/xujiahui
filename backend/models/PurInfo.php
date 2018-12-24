@@ -53,7 +53,7 @@ class PurInfo extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'pur_info2';
+        return 'pur_info';
     }
 
     /**
