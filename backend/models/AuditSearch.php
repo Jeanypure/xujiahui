@@ -51,7 +51,7 @@ class AuditSearch extends PurInfo
         $res = Company::find()->select('id,sub_company')
             ->where("leader_id=".$userId)->asArray()->one();
         $sub_id = $res['id']??'';
-       $userRole = Yii::$app->authManager->getRolesByUser($userId);
+        $userRole = Yii::$app->authManager->getRolesByUser($userId);
         if(array_key_exists('销售部长',$userRole)){
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
@@ -70,6 +70,15 @@ class AuditSearch extends PurInfo
                 ->andWhere(['member2'=>$member])
                 ->orderBy('pur_info_id desc')
             ;
+        }elseif(array_key_exists('杭州经理',$userRole)){
+            $query = PurInfo::find()
+                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
+                ->joinWith('preview')
+                ->andWhere(['is_submit'=>1])
+                ->andWhere(['member2'=>$member])
+                ->orderBy('pur_info_id desc')
+            ;
+
         }else{
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])

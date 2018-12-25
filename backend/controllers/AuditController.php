@@ -143,25 +143,24 @@ class AuditController extends Controller
         $exchange_rate = PurInfoController::actionExchangeRate();
 
         $purinfo = $this->findModel($id);
-
+        $preview_sale = Preview::find()
+            ->Where(['product_id'=>$id])
+            ->andWhere(['<>','member2','Becky'])
+            ->one();
+//        var_dump($preview_sale);die;
         if(($model_preview = Preview::findOne(['product_id'=>$id,
-            'member2'=>Yii::$app->user->identity->username])))
-        { // 审核组 更新评审
+            'member2'=>Yii::$app->user->identity->username]))){ // 审核组 更新评审
             if ($model_preview->load(Yii::$app->request->post()) ) {
-
                  $model_preview->view_status = 1;
                  $model_preview->save(false);
-                    return $this->redirect('index');
+                 return $this->redirect('index');
             }
             return $this->renderAjax('update_audit', [
                 'model_preview' => $model_preview,
                 'purinfo'=>$purinfo,
                 'exchange_rate' =>$exchange_rate
-
-
             ]);
-
-        }else {
+        }else{
             $model_preview =  new Preview();
             if ($model_preview->load(Yii::$app->request->post())) {
                 $model_preview->view_status = 1;
@@ -181,15 +180,15 @@ class AuditController extends Controller
     }
 
 
-
-
-
+    /**
+     * @throws \yii\db\Exception
+     * 提交评审
+     */
     public  function  actionSubmit(){
 
         $username = Yii::$app->user->identity->username;
         $tag = 1;
         $ids = $_POST['id'];
-
         $product_ids = '';
         foreach ($ids as $k=>$v){
             $product_ids.=$v.',';
@@ -199,7 +198,6 @@ class AuditController extends Controller
 
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-         
             update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
             ")->execute();
             if($res){
@@ -246,8 +244,6 @@ class AuditController extends Controller
      */
 
     public function actionAuditStatus($username,$ids_str,$tag){
-
-
         $arr_role =  Yii::$app->db->createCommand("
         SELECT  role FROM purchaser WHERE purchaser='$username'
         ")->queryOne();

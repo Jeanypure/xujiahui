@@ -19,9 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('view', [
         'model' => $purinfo,
+    ]); ?>
 
-
-    ]) ?>
+    <?php
+//    echo $this->render('preview',['preview_sale' =>$preview_sale])
+    ?>
     <div class="preview-form">
 
         <?php $form = ActiveForm::begin(); ?>
@@ -261,8 +263,6 @@ $remaind = <<<JS
     });
 JS;
 $this->registerJs($remaind);
-
-
 
 ?>
 
