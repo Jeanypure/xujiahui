@@ -3,13 +3,11 @@
 
 namespace backend\controllers;
 
-use backend\models\Company;
 use Yii;
 use backend\models\PurInfo;
-use backend\models\MangerAuditSearch;
 use backend\models\JuniorAuditSearch;
 use backend\models\Preview;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -79,9 +77,10 @@ class JuniorAuditController extends Controller
 
         if($model_update->load(Yii::$app->request->post())) {
                 $model_update->view_status = 1;
+                $model_update->submit_manager = 1;
                 $model_update->priview_time = date('Y-m-d H:i:s');
                 $model_update->save(false);
-//                return $this->redirect(['index']);
+                return $this->redirect(['index']);
             }
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -93,23 +92,7 @@ class JuniorAuditController extends Controller
 
     }
 
-    /**
-     * Creates a new PurInfo model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new PurInfo();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->redirect(['view', 'id' => $model->pur_info_id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Updates an existing PurInfo model.
@@ -148,54 +131,52 @@ class JuniorAuditController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-
     /**
-     * Manger Audit is the  final determination  what the product status
+     * @throws \yii\db\Exception
+     * 提交评审
      */
-    public function actionAudit( $id )
-    {
-        $model = $this->findModel($id);
-        if($model){
-            if ($model->load(Yii::$app->request->post())  ) {
-                $model->master_result = Yii::$app->request->post()['PurInfo']['master_result'];
-                $model->master_mark = Yii::$app->request->post()['PurInfo']['master_mark'];
-                $model->master_member = Yii::$app->user->identity->username;
-                $model->preview_status = 1;
-                $model->save(false);
-                return $this->redirect(['index']);
-            }
-
-            return $this->renderAjax('update_audit', [
-                'model' => $model,
-            ]);
+    public  function  actionSubmit(){
+        $username = Yii::$app->user->identity->username;
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
         }
+        $ids_str = trim($product_ids,',');
 
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
     }
 
 
-    public function actionCheckSample($id){
-        $spur_id = Yii::$app->db->createCommand("
-                   select spur_info_id  from sample where spur_info_id = $id
-                  ")->queryOne();
+    public  function  actionCancel(){
+        $username = Yii::$app->user->identity->username;
+        $ids = $_POST['id'];
+        $product_ids = '';
+        foreach ($ids as $k=>$v){
+            $product_ids.=$v.',';
+        }
+        $ids_str = trim($product_ids,',');
 
-        return $spur_id['spur_info_id'];
-
+        if(isset($ids)&&!empty($ids)){
+            $res = Yii::$app->db->createCommand("
+            update `preview` set `submit_manager`= 0  where `product_id` in ($ids_str) and  member2='$username';
+            ")->execute();
+            if($res){
+                echo 'success';
+            }
+        }else{
+            echo 'error';
+        }
     }
 
-    /**
-     * 按规则生成SKU
-     *
-     */
-    public function actionBorn($id)
-    {
-        $model = $this->findModel($id);
-        $res =   Yii::$app->db->createCommand("
-             select sku_code1,start_num from purchaser where  purchaser= '$model->purchaser';
-            ")->queryAll();
-        $part1 =$res[0]['sku_code1'];
-        $sku = $part1.'-';
-        return $sku;
-
-    }
 
 }

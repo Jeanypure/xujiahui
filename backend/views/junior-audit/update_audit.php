@@ -91,6 +91,7 @@ use kartik\builder\Form;
         <div class="form-group">
             <div style="text-align:right">
                 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg']) ?>
+                <?= Html::Button(Yii::t('app', 'Submit'), ['class' => 'btn btn-info btn-lg']) ?>
 
             </div>
         </div>

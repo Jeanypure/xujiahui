@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Sample;
 use backend\models\SampleSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

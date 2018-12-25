@@ -70,15 +70,6 @@ class AuditSearch extends PurInfo
                 ->andWhere(['member2'=>$member])
                 ->orderBy('pur_info_id desc')
             ;
-        }elseif(array_key_exists('杭州经理',$userRole)){
-            $query = PurInfo::find()
-                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
-                ->joinWith('preview')
-                ->andWhere(['is_submit'=>1])
-                ->andWhere(['member2'=>$member])
-                ->orderBy('pur_info_id desc')
-            ;
-
         }else{
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])

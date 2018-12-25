@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\daterange\DateRangePicker;
+use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
@@ -14,18 +15,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">
 
-    <h6><?= Html::encode($this->title) ?></h6>
+     <p>
+            <?= Html::button('提交评审', ['id' => 'is_submit_manager', 'class' => 'btn btn-primary']) ;?>
+            <?=  Html::button('取消提交', ['id' => 'un_submit_manager', 'class' => 'btn btn-info']) ?>
+
+     </p>
 
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'striped'=>true,
+        'id' => 'junior-audit',
         'responsive'=>true,
         'hover'=>true,
         'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckBoxColumn'],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=> '操作',
@@ -33,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['width' => '100'],
 
             ],
-
             [
                 'class' => 'yii\grid\Column',
                 'headerOptions' => [
@@ -99,6 +105,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute'=>'submit_leader',
+                'width'=>'100px',
+                'value'=>function ($model, $key, $index, $widget) {
+                    if($model['submit_leader']==1){
+                        return '是';
+
+                    }else{
+                        return '否';
+                    }
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['1' => '是', '0' => '否'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'是否提交'],
+            ],
+            [
                 'attribute'=>'audit_a',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
@@ -133,6 +157,77 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
+            ],
+            [
+                'attribute'=>'view_status',
+                'value' => function($model) {
+                    if($model->view_status==1){
+                        return '已评审';
+                    }else{
+                        return '未评审';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '未评审', '1' => '已评审'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'评审?'],
+            ],
+            [
+                'attribute'=>'submit_manager',
+                'value' => function($model) {
+                    if($model->submit_manager==1){
+                        return '是';
+                    }else{
+                        return '否';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '否', '1' => '是'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'提交?'],
+//                'group'=>true,  // enable grouping
+
+            ],
+            [
+                'attribute'=>'result',
+                'value' => function($model) {
+                    if($model->result==0){
+                        return '拒绝';
+                    }elseif($model->result==1){
+                        return '采样';
+
+                    }elseif($model->result==2){
+                        return '需议价和谈其他条件';
+
+                    }elseif($model->result==3){
+                        return '尚未评';
+
+                    }elseif($model->result==4){
+                        return '直接下单';
+
+                    }elseif($model->result==5){
+                        return '季节产品推迟';
+
+                    }
+                },
+                'contentOptions'=> ['style' => 'width: 50%; word-wrap: break-word;white-space:pre-line;'],
+                'format'=>'html',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>['0' => '拒绝', '1' => '采样', '2' => '需议价和谈其他条件', '3' => '尚未评', '4' => '直接下单', '5' => '季节产品推迟'],
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'结果'],
             ],
             [
                 'attribute'=>'master_result',
@@ -279,3 +374,62 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
+<?php
+$submit = Url::toRoute('submit');
+$unsubmit = Url::toRoute('cancel');
+//提交评审
+$is_submit_manager =<<<JS
+    $('#is_submit_manager').on('click',function() {
+            var button = $(this);
+            button.attr('disabled','disabled');
+            var ids = $("#junior-audit").yiiGridView("getSelectedRows");
+            console.log(ids);
+            if(ids.length ==0) alert('请选择产品后再操作!');
+            $.ajax({
+            url:'{$submit}',
+            type:'post',
+            data:{id:ids},
+            success:function(res){
+                if(res=='success') alert('提交成功!');
+                button.attr('disabled',false);
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                button.attr('disabled',false);
+            }
+            
+            });
+      
+    });
+//取消提交
+
+    $('#un_submit_manager').on('click',function() {
+                var button = $(this);
+                button.attr('disabled','disabled');
+                var ids = $("#junior-audit").yiiGridView("getSelectedRows");
+                console.log(ids);
+                if(ids.length ==0) alert('请选择产品后再操作!');
+                $.ajax({
+                url:'{$unsubmit}',
+                type:'post',
+                data:{id:ids},
+                success:function(res){
+                    if(res=='success') alert('取消成功!');
+                    button.attr('disabled',false);
+                    // location.reload();
+    
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    button.attr('disabled',false);
+                }
+                
+                });
+          
+        });
+JS;
+
+
+
+$this->registerJs($is_submit_manager);
+?>

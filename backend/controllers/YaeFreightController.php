@@ -12,13 +12,11 @@ use backend\models\FeeCategory;
 use backend\models\YaeExchangeRate;
 use backend\models\FreightForwarders;
 use backend\models\YaeFreightSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use common\components\Upload;
 use backend\models\UploadForm;
-use yii\helpers\Json;
 use yii\web\Response;
 /**
  * YaeFreightController implements the CRUD actions for YaeFreight model.

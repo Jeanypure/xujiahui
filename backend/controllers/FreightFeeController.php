@@ -6,7 +6,7 @@ use backend\models\FeeCategory;
 use Yii;
 use backend\models\FreightFee;
 use backend\models\FreightFeeSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

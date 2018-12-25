@@ -7,10 +7,8 @@ use Yii;
 use backend\models\YaeSupplier;
 use backend\models\YaeSupplierSearch;
 use backend\models\SupplierContact;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\base\Model;
 
 /**
  * YaeSupplierController implements the CRUD actions for YaeSupplier model.

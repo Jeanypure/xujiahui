@@ -1,11 +1,10 @@
 <?php
 namespace backend\controllers;
 
-use backend\models\Sample;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\GroupListingSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 class GroupListingController extends Controller

@@ -2,11 +2,10 @@
 
 namespace backend\controllers;
 
-use backend\models\Sample;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\DepartmentSelfSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Company;

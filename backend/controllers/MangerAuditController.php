@@ -2,12 +2,10 @@
 
 namespace backend\controllers;
 
-use backend\models\Company;
 use Yii;
 use backend\models\PurInfo;
 use backend\models\MangerAuditSearch;
 use backend\models\Preview;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

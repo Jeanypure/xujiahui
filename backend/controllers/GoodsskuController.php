@@ -6,7 +6,7 @@ use Yii;
 use backend\models\Goodssku;
 use backend\models\SkuVendor;
 use backend\models\GoodsskuSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;

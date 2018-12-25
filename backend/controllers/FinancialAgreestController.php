@@ -6,7 +6,7 @@ use Yii;
 use backend\models\PurInfo;
 use backend\models\Sample;
 use app\models\FinancialAgreestSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

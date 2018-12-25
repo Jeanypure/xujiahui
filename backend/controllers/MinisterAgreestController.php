@@ -7,7 +7,7 @@ use backend\models\PurInfo;
 use backend\models\Sample;
 use backend\models\Goodssku;
 use backend\models\MinisterAgreestSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

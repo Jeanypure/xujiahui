@@ -5,7 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Purchaser;
 use backend\models\PurchaserSearch;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

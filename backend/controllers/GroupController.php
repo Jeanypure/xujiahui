@@ -2,12 +2,11 @@
 
 namespace backend\controllers;
 
-use Codeception\Lib\Generator\Group;
 use Yii;
 use backend\models\Product;
 use backend\models\GroupSearch;
 use backend\models\Company;
-use yii\web\Controller;
+//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
