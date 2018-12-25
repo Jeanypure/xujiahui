@@ -38,8 +38,17 @@ class AuditController extends Controller
      */
     public function actionIndex()
     {
+        $member = Yii::$app->user->identity->username;
+        $userId = Yii::$app->user->identity->getId();
+        $userRole = Yii::$app->authManager->getRolesByUser($userId);
         $searchModel = new AuditSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$member,$userRole);
+        if(array_key_exists('审核组',$userRole)){
+            return $this->render('audit_index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -184,7 +193,8 @@ class AuditController extends Controller
      * 提交评审
      */
     public  function  actionSubmit(){
-
+        $userId = Yii::$app->user->identity->getId();
+        $userRole = Yii::$app->authManager->getRolesByUser($userId);
         $username = Yii::$app->user->identity->username;
         $tag = 1;
         $ids = $_POST['id'];
@@ -193,13 +203,18 @@ class AuditController extends Controller
             $product_ids.=$v.',';
         }
         $ids_str = trim($product_ids,',');
-        $result = $this->actionAuditStatus($username,$ids_str,$tag);
-
+//        $result = $this->actionAuditStatus($username,$ids_str,$tag);
+        $sql1 = " update `preview` set `submit_leader`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
+            update `pur_info` set `audit_c` = 1 where  `pur_info_id` in ($ids_str);";
+        $sql2 = " update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
+            update `pur_info` set `audit_a` = 1 where  `pur_info_id` in ($ids_str);";
+        if(array_key_exists('审核组',$userRole)){
+            $sql = $sql2;
+        }else{
+            $sql = $sql1;
+        }
         if(isset($ids)&&!empty($ids)){
-            $res = Yii::$app->db->createCommand("
-            update `preview` set `submit_leader`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
-            update `pur_info` set `audit_c` = 1 where  `pur_info_id` in ($ids_str);
-            ")->execute();
+            $res = Yii::$app->db->createCommand($sql)->execute();
             if($res){
                 echo 'success';
             }
@@ -219,7 +234,7 @@ class AuditController extends Controller
         }
         $ids_str = trim($product_ids,',');
 
-        $result = $this->actionAuditStatus($username,$ids_str,$tag);
+//        $result = $this->actionAuditStatus($username,$ids_str,$tag);
 
 
         if(isset($ids)&&!empty($ids)){

@@ -66,6 +66,7 @@ class Preview extends \yii\db\ActiveRecord
             'ref_url23' => 'eBay链接3',
             'ref_url3' => '1688低价链接',
             'ref_url4' => '其他链接',
+            'submit_manager' => '提交?',
         ];
     }
 }

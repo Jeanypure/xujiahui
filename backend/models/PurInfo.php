@@ -96,7 +96,7 @@ class PurInfo extends \yii\db\ActiveRecord
         return [
             'pur_info_id' => 'ID',
             'audit_a' => '审核组',
-            'audit_b' => '部长组',
+            'audit_b' => '杭州组',
             'audit_c' => '销售组',
             'submit_leader' => '销售组',
             'is_assign' => '是否分配',
