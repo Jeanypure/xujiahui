@@ -147,7 +147,6 @@ class AuditController extends Controller
             ->Where(['product_id'=>$id])
             ->andWhere(['<>','member2','Becky'])
             ->one();
-//        var_dump($preview_sale);die;
         if(($model_preview = Preview::findOne(['product_id'=>$id,
             'member2'=>Yii::$app->user->identity->username]))){ // 审核组 更新评审
             if ($model_preview->load(Yii::$app->request->post()) ) {
@@ -198,7 +197,8 @@ class AuditController extends Controller
 
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
+            update `preview` set `submit_leader`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
+            update `pur_info` set `audit_c` = 1 where  `pur_info_id` in ($ids_str);
             ")->execute();
             if($res){
                 echo 'success';
@@ -224,7 +224,8 @@ class AuditController extends Controller
 
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `preview` set `submit_manager`= 0  where `product_id` in ($ids_str) and  member2='$username';
+            update `preview` set `submit_leader`= 0  where `product_id` in ($ids_str) and  member2='$username';
+            update `pur_info` set `audit_c` = 0  where  `pur_info_id` in ($ids_str);
             ")->execute();
             if($res){
                 echo 'success';

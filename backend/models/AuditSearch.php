@@ -21,7 +21,7 @@ class AuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['source','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
+            [['submit_leader','source','is_submit_manager','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'hs_code', 'bill_tax_rebate', 'parent_product_id'], 'integer'],
             [['result','submit_manager','master_mark','master_result','pd_create_time','view_status','preview_status','member','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'pd_material', 'bill_type', 'bill_rebate_amount',
                 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688','else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark'], 'safe'],
             [['pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice'], 'number'],
@@ -54,7 +54,7 @@ class AuditSearch extends PurInfo
         $userRole = Yii::$app->authManager->getRolesByUser($userId);
         if(array_key_exists('销售部长',$userRole)){
             $query = PurInfo::find()
-                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
+                ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.submit_leader,`preview`.result'])
                 ->joinWith('preview')
                 ->andWhere(['saler'=> $member])
                 ->andWhere(['is_submit'=>1])
@@ -80,8 +80,8 @@ class AuditSearch extends PurInfo
             ;
         }
 //        echo $query->createCommand()->getRawSql(); die;
-        $this->view_status = 0;
-        $this->submit_manager = 0;
+//        $this->view_status = 0;
+//        $this->submit_leader = 0;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

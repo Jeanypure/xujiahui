@@ -174,9 +174,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'评审?'],
             ],
             [
-                'attribute'=>'submit_manager',
+                'attribute'=>'submit_leader',
                 'value' => function($model) {
-                    if($model->submit_manager==1){
+                    if($model->submit_leader==1){
                         return '是';
                     }else{
                         return '否';
@@ -191,8 +191,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'提交?'],
-//                'group'=>true,  // enable grouping
-
             ],
             [
                 'attribute'=>'result',

@@ -18,7 +18,7 @@ class JuniorAuditSearch extends PurInfo
     public function rules()
     {
         return [
-            [['submit_manager','view_status','submit_leader','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign', 'audit_a', 'audit_b', 'bill_tax_value', 'pur_complete_status', 'pur_compelte_result', 'has_shared', 'trading_company', 'is_patent_right', 'is_third_party_abroad_right', 'promise_rights', 'special_auth_FDA', 'sample_return', 'is_purchase', 'sample_submit1', 'sample_submit2', 'has_pay', 'is_quality'], 'integer'],
+            [['audit_c','submit_manager','view_status','submit_leader','pur_info_id', 'pur_group', 'is_huge', 'pd_purchase_num', 'has_shipping_fee', 'bill_tax_rebate', 'parent_product_id', 'source', 'preview_status', 'brocast_status', 'master_result', 'is_submit', 'is_submit_manager', 'pur_group_status', 'junior_submit', 'is_assign', 'audit_a', 'audit_b', 'bill_tax_value', 'pur_complete_status', 'pur_compelte_result', 'has_shared', 'trading_company', 'is_patent_right', 'is_third_party_abroad_right', 'promise_rights', 'special_auth_FDA', 'sample_return', 'is_purchase', 'sample_submit1', 'sample_submit2', 'has_pay', 'is_quality'], 'integer'],
             [['result','purchaser', 'pd_title', 'pd_title_en', 'pd_pic_url', 'pd_package', 'pd_material', 'bill_type', 'hs_code', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url', 'amazon_url', 'url_1688', 'else_url', 'shipping_fee', 'oversea_shipping_fee', 'transaction_fee', 'gross_profit', 'remark', 'member', 'assign_member', 'master_member', 'master_mark', 'priview_time', 'pd_create_time', 'purchaser_leader', 'profit_rate', 'gross_profit_amz', 'profit_rate_amz', 'amz_fulfillment_cost', 'selling_on_amz_fee', 'amz_retail_price', 'amz_retail_price_rmb', 'commit_date', 'new_member', 'purchaser_send_time', 'junior_submit_at', 'old_purchaser', 'saler', 'payer', 'sure_purchase_time', 'pay_at', 'submit1_at', 'submit2_at', 'cancel1_at', 'cancel2_at'], 'safe'],
             [['pd_length', 'pd_width', 'pd_height', 'pd_weight', 'pd_throw_weight', 'pd_count_weight', 'pd_pur_costprice', 'ams_logistics_fee', 'old_costprice', 'fact_pay_amount'], 'number'],
         ];
@@ -43,11 +43,12 @@ class JuniorAuditSearch extends PurInfo
     public function search($params)
     {
         $query = PurInfo::find()
-            ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.result'])
+            ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.submit_leader,`preview`.result'])
             ->joinWith('preview')
             ->andWhere(['is_submit'=>1])
             ->andWhere(['member2'=>'Becky'])
             ->orderBy('pur_info_id desc');
+        $this->audit_c = 1;
 
         // add conditions that should always apply here
 
@@ -119,6 +120,7 @@ class JuniorAuditSearch extends PurInfo
             'cancel2_at' => $this->cancel2_at,
             'has_pay' => $this->has_pay,
             'is_quality' => $this->is_quality,
+            'audit_c' =>$this->audit_c
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])

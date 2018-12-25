@@ -105,10 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
-                'attribute'=>'submit_leader',
+                'attribute'=>'audit_c',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model['submit_leader']==1){
+                    if($model['audit_c']==1){
                         return '是';
 
                     }else{
