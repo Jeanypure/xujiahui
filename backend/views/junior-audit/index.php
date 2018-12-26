@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'export' => false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\CheckBoxColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=> '操作',
