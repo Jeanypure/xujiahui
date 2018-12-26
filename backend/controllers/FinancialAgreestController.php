@@ -58,20 +58,21 @@ class FinancialAgreestController extends Controller
 
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         if(isset($sample_model)&&!empty($sample_model)){
-                if($model->load(Yii::$app->request->post()) ){
-                    $model->has_pay = Yii::$app->request->post()['PurInfo']['has_pay'];
-                    $model->pay_at = $pay_at;
-                    $model->payer = Yii::$app->user->identity->username;
-                    $model->save(false);
+                if($sample_model->load(Yii::$app->request->post()) ){
+                    $sample_model->has_pay = Yii::$app->request->post()['Sample']['has_pay'];
+                    $sample_model->pay_at = $pay_at;
+                    $sample_model->payer = Yii::$app->user->identity->username;
+                    $sample_model->save(false);
                     return $this->redirect(['index']);
                 }
             return $this->renderAjax('view', [
-                'model' => $model   ,
+                'model' => $model,
                 'sample_model' => $sample_model,
             ]);
         }else{
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
+                'sample_model' => $sample_model,
             ]);
         }
     }

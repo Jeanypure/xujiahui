@@ -221,8 +221,8 @@ class PurInfoTrackController extends Controller
             if(isset($sample->pay_amount)&&!empty($sample->pay_way)){
                 try{
                     $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 1 ,`submit1_at` = '$submit1_at'
-            where `pur_info_id` in ($ids)
+            update `sample` set `sample_submit1`= 1 ,`submit1_at` = '$submit1_at'
+            where `spur_info_id` in ($ids)
             ")->execute();
                 }catch(\Exception $e){
                     throw($e);
@@ -252,8 +252,8 @@ class PurInfoTrackController extends Controller
         $cancel_at = date('Y-m-d H:i:s');
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
-            update `pur_info` set `sample_submit1`= 0 ,`cancel1_at` = '$cancel_at'
-            where `pur_info_id` in ($ids)
+            update `sample` set `sample_submit1`= 0 ,`cancel1_at` = '$cancel_at'
+            where `spur_info_id` in ($ids)
             ")->execute();
             if($res){
                 echo 'success';

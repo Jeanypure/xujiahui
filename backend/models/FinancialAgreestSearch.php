@@ -44,13 +44,13 @@ class FinancialAgreestSearch extends PurInfo
     {
         $query = PurInfo::find()
             ->select(['
-                    `pur_info2`.pur_info_id,
-                    `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
-                    `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
-                    `pur_info2`.payer,`pur_info2`.pay_at,`pur_info2`.has_pay,`pur_info2`.sample_return, 
-                    `sample2`.pay_amount,`sample2`.pd_sku,`sample2`.for_free'
+                    `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `sample`.payer,`sample`.pay_at,`sample`.has_pay,`sample`.sample_return, 
+                    `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free'
             ])
-            ->joinWith('sample2')
+            ->joinWith('sample')
         ->andWhere(['sample_submit1'=>1])
         ->andWhere(['sample_submit2'=>1])
         ->andWhere(['is_agreest'=>1])

@@ -51,29 +51,29 @@ class MinisterAgreestSearch extends PurInfo
         if( array_key_exists('超级管理员',$role)){
             $query = PurInfo::find()
                 ->select(['
-                    `pur_info2`.pur_info_id,
-                    `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
-                    `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
-                    `sample2`.sample_submit2,`sample2`.is_quality,`sample2`.submit2_at,`sample2`.is_purchase,`sample2`.submit2_at,
-                    `sample2`.submit1_at,`sample2`.sample_return,`sample2`.has_pay,`sample2`.payer,`sample2`.pay_at,  
-                    `sample2`.spur_info_id,`sample2`.is_agreest,`sample2`.for_free,`sample2`.has_arrival,`sample2`.minister_result,`sample2`.pd_sku,`sample2`.write_date'
+                    `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `sample`.sample_submit2,`sample`.is_quality,`sample`.submit2_at,`sample`.is_purchase,`sample`.submit2_at,
+                    `sample`.submit1_at,`sample`.sample_return,`sample`.has_pay,`sample`.payer,`sample`.pay_at,  
+                    `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free,`sample`.has_arrival,`sample`.minister_result,`sample`.pd_sku,`sample`.write_date'
                 ])
-                ->joinWith('sample2')
+                ->joinWith('sample')
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')
             ;
 
-            $this->is_agreest = 2;
+//            $this->is_agreest = 2;
         }else{ //按部门显示
             $query = PurInfo::find()
                 ->select(['
-                    `pur_info2`.pur_info_id,
-                    `pur_info2`.pd_title,`pur_info2`.pd_title_en,`pur_info2`.purchaser,`pur_info2`.pd_pic_url,
-                    `pur_info2`.pur_group,`pur_info2`.master_result,`pur_info2`.master_mark,
-                    `sample2`.sample_submit2,`sample2`.is_quality,`sample2`.submit2_at,`sample2`.is_purchase,`sample2`.submit2_at,
-                    `sample2`.submit1_at,`sample2`.sample_return,`sample2`.has_pay,`sample2`.payer,`sample2`.pay_at,   
-                    `sample2`.spur_info_id,`sample2`.is_agreest,`sample2`.for_free,`sample2`.has_arrival,`sample2`.minister_result,`sample2`.pd_sku,`sample2`.write_date'])
-                ->joinWith('sample2')
+                    `pur_info`.pur_info_id,
+                    `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
+                    `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
+                    `sample`.sample_submit2,`sample`.is_quality,`sample`.submit2_at,`sample`.is_purchase,`sample`.submit2_at,
+                    `sample`.submit1_at,`sample`.sample_return,`sample`.has_pay,`sample`.payer,`sample`.pay_at,   
+                    `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free,`sample`.has_arrival,`sample`.minister_result,`sample`.pd_sku,`sample`.write_date'])
+                ->joinWith('sample')
                 ->andWhere(['pur_group'=>$pur_group])
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')

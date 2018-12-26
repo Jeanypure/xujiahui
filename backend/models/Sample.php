@@ -34,7 +34,7 @@ class Sample extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'sample2';
+        return 'sample';
     }
 
     /**

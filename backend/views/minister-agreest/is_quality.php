@@ -24,7 +24,7 @@ use kartik\select2\Select2;
 
     <?php
     echo Form::widget([
-        'model'=>$model,
+        'model'=>$sample_model,
         'form'=>$form,
         'columns'=>6,
         'attributes'=>[       // 3 column layout
@@ -67,9 +67,6 @@ use kartik\select2\Select2;
     ]);
 
     ?>
-
-
-
 
 
     <div class="form-group">

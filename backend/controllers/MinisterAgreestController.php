@@ -61,10 +61,8 @@ class MinisterAgreestController extends Controller
             if($sample_model->load($post) ){
                $is_agree =  $post['Sample']['is_agreest'];
                 if((int)$is_agree==1){
-                    $res = Yii::$app->db->createCommand("
-                        update `pur_info` set `sample_submit2`= 1 ,`submit2_at` = '$submit2_at'
-                        where `pur_info_id` = $id
-                        ")->execute();
+                    $sample_model->sample_submit2 = 1;
+                    $sample_model->submit2_at = $submit2_at;
                     $sample_model->is_agreest=1;
                  }
 
@@ -181,13 +179,11 @@ class MinisterAgreestController extends Controller
         $model = $this->findModel($id);
         $sample_model = Sample::findOne(['spur_info_id'=>$id]);
         $post = Yii::$app->request->post();
-
-        if($model->load($post)){
-            $model->attributes = $post['PurInfo'];
+        if($sample_model->load($post)){
             $sample_model->attributes = $post['Sample'];
             $minister_result = $post['Sample']['minister_result'];
-            if(isset($post['PurInfo']['is_purchase'])&&$post['PurInfo']['is_purchase']==1){
-                $model->sure_purchase_time = date('Y-m-d H:i:s');
+            if(isset($post['Sample']['is_purchase'])&&$post['Sample']['is_purchase']==1){
+                $sample_model->sure_purchase_time = date('Y-m-d H:i:s');
                     try{
                         $sql = " SET @id = $id;
                             CALL purinfo_to_goodssku (@id);";
@@ -230,7 +226,7 @@ class MinisterAgreestController extends Controller
 
             }
 
-            if ($sample_model->save(false)&&$model->save(false)) {
+            if ($sample_model->save(false)) {
                 Yii::$app->getSession()->setFlash('success', '保存成功');
             } else {
                 Yii::$app->getSession()->setFlash('error', '保存失败');
@@ -238,7 +234,6 @@ class MinisterAgreestController extends Controller
             return $this->redirect(['index']);
         }
         return  $this->renderAjax('is_quality', [
-            'model' => $model,
             'sample_model' => $sample_model,
         ]);
 
@@ -266,10 +261,7 @@ class MinisterAgreestController extends Controller
                 $site_str .= "'".$val."',";
             }
 
-
             $str_site = trim($site_str,',');
-
-
             $men_site = Yii::$app->db->createCommand("
                 select  code as purchaser,$id as id,purchaser as site from purchaser where  purchaser in($str_site)
             ")->queryAll();
@@ -278,67 +270,19 @@ class MinisterAgreestController extends Controller
             foreach ($men_site as $key=>$value){
                 $arr[] =  array_values($value);
             }
-
-
             $table = 'headman';
             $arr_key = ['headman','product_id','site'];
-
-            $res = $this->actionMultArray2Insert($table,$arr_key, $arr, $split = '`');
             try{
-                $result =   Yii::$app->db->createCommand("$res")->execute();
-
+               $res = Yii::$app->db->createCommand()->batchInsert($table,$arr_key,$arr)->execute();
             }
             catch(Exception $e){
                 throw new Exception();
             }
 
-//            return $result;
-
-
-
+            return $res;
         }
 
 
-
-        /**
-
-         * 多条数据同时转化成插入SQL语句
-
-         * @ CreatBy:IT自由职业者
-
-         * @param string $table 表名
-
-         * @$arr_key是表字段名的key：$arr_key=array("field1","field2","field3")
-
-         * @param array $arr是字段值 数组示例 arrat(("a","b","c"), ("bbc","bbb","caaa"),('add',"bppp","cggg"))
-
-         * @return string
-
-         */
-
-        public  function actionMultArray2Insert($table,$arr_key, $arr, $split = '`') {
-
-            $arrValues = array();
-
-            if (empty($table) || !is_array($arr_key) || !is_array($arr)) {
-
-                return false;
-
-            }
-
-            $sql = "INSERT INTO %s( %s ) values %s ";
-
-            foreach ($arr as $k => $v) {
-
-                $arrValues[$k] = "'".implode("','",array_values($v))."'";
-
-            }
-
-            $sql = sprintf($sql, $table, "{$split}" . implode("{$split} ,{$split}", $arr_key) . "{$split}", "(" . implode(") , (", array_values($arrValues)) . ")");
-
-            return $sql;
-
-        }
 
     /**
      * @param $id
