@@ -44,11 +44,23 @@ class AssignTaskSearch extends PurInfo
      */
     public function search($params)
     {
-        $query = PurInfo::find()
-            ->andwhere(['is_submit'=>1])
-            ->andwhere(['not',['purchaser'=>'null']])
-            ->orderBy('pur_info_id desc')
-        ;
+        $userId = Yii::$app->user->identity->getId();
+        $userRole = Yii::$app->authManager->getRolesByUser($userId);
+        if(array_key_exists('审核组',$userRole)){
+            $query = PurInfo::find()
+                ->andwhere(['is_submit'=>1])
+                ->andWhere(['audit_b'=>1])
+                ->andwhere(['not',['purchaser'=>'null']])
+                ->orderBy('pur_info_id desc')
+            ;
+        }else{
+            $query = PurInfo::find()
+                ->andwhere(['is_submit'=>1])
+                ->andwhere(['not',['purchaser'=>'null']])
+                ->orderBy('pur_info_id desc')
+            ;
+        }
+
 
         // add conditions that should always apply here
 
