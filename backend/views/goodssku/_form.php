@@ -82,13 +82,8 @@ use yii\helpers\Url;
 ?>
     <?php echo $form->field($model, 'sale_company')->widget(Select2::classname(), [
         'data' => [
-            '2'=>'商舟',
-            '3'=>'雅耶',
-            '5'=>'朗探',
-            '6'=>'域聪',
             '7'=>'鹏侯',
-            '8'=>'客尊',
-            '9'=>'朵邦',
+            '13'=>'杭州雅耶',
         ],
         'options' => ['placeholder' => '选择销售公司.....'],
         'pluginOptions' => [
