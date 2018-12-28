@@ -45,7 +45,7 @@ class CommissionSearch extends PurInfo
         if($userrole == '审核组'||$userrole == '超级管理员'){
             $query = PurInfo::find()->alias('po')
                 ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
-                po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
+                po.`pd_pic_url`,po.`purchaser`,e.`is_purchase`,po.`pd_pur_costprice`,
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,e.`audit_team_result`,e.`purchaser_result`,e.`is_diff`,
                 e.`pd_sku`,
                 CASE  WHEN po.`pd_pur_costprice` >= 150 THEN 500
@@ -59,13 +59,13 @@ class CommissionSearch extends PurInfo
                 "])
                 ->joinWith('sample as e')
                 ->leftJoin('purchaser AS pr','pr.purchaser = po.purchaser')
-                ->andWhere(['po.is_purchase'=>1])
+                ->andWhere(['e.is_purchase'=>1])
                 ->orderBy('po.pur_info_id desc');
             ;
         }elseif ($userrole == '销售部长'){
             $query = PurInfo::find()->alias('po')
                 ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
-                po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
+                po.`pd_pic_url`,po.`purchaser`,e.`is_purchase`,po.`pd_pur_costprice`,
                 e.`has_arrival`,e.`write_date`,e.`minister_result`,e.`audit_team_result`, e.`pd_sku`,
                 CASE  WHEN po.`pd_pur_costprice` >= 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
@@ -78,13 +78,13 @@ class CommissionSearch extends PurInfo
                 "])
                 ->joinWith('sample as e')
                 ->leftJoin('purchaser AS pr','pr.purchaser = po.purchaser')
-                ->andWhere(['po.is_purchase'=>1])
+                ->andWhere(['e.is_purchase'=>1])
                 ->andWhere(['po.pur_group'=>$sub_id])
                 ->orderBy('po.pur_info_id desc');
         }else{ //采购
             $query = PurInfo::find()->alias('po')
                 ->select(["po.`pur_info_id`,po.`pur_group`,po.`source`,po.`pd_title`,
-                po.`pd_pic_url`,po.`purchaser`,po.`is_purchase`,po.`pd_pur_costprice`,
+                po.`pd_pic_url`,po.`purchaser`,e.`is_purchase`,po.`pd_pur_costprice`,
                 e.`has_arrival`,e.`write_date`,e.`audit_team_result`, e.`pd_sku`,
                 CASE  WHEN po.`pd_pur_costprice` >= 150 THEN 500
                 ELSE 400 END AS 'unit_price',    
@@ -97,7 +97,7 @@ class CommissionSearch extends PurInfo
                 "])
                 ->joinWith('sample as e')
                 ->leftJoin('purchaser AS pr','pr.purchaser = po.purchaser')
-                ->andWhere(['po.is_purchase'=>1])
+                ->andWhere(['e.is_purchase'=>1])
                 ->andWhere(['po.purchaser'=>$username])
                 ->orderBy('po.pur_info_id desc');
         }
@@ -130,7 +130,7 @@ class CommissionSearch extends PurInfo
         $query->andFilterWhere([
             'po.pur_info_id' => $this->pur_info_id,
             'po.pur_group' => $this->pur_group,
-            'po.is_purchase' => $this->is_purchase,
+            'e.is_purchase' => $this->is_purchase,
             'e.minister_result' => $this->minister_result,
             'e.has_arrival' => $this->has_arrival,
             'pr.grade' => $this->grade,
