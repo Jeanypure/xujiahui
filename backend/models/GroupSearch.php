@@ -42,10 +42,9 @@ class GroupSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$accept_status,$sub_company,$creator,$is_submit)
+    public function search($params)
     {
-        $this->accept_status = $accept_status;
-        $this->is_submit = $is_submit;
+        $this->is_submit = 1;
         $query = Product::find()
             ->andWhere(['not',['sub_company'=>'null']])
             ->orderBy('product_id desc');

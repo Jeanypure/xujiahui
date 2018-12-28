@@ -37,7 +37,7 @@ class GroupController extends Controller
     public function actionIndex()
     {
         $searchModel = new GroupSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'','','','1');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

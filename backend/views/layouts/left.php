@@ -74,6 +74,7 @@ $JS = <<< JS
     $("a span:contains('财务付款')").after('<sup class="label label-success">{$status_map["财务付款"]}</sup>');
     $("a span:contains('议价产品列表')").after('<sup class="label label-primary">{$status_map["议价产品列表"]}</sup>');
     $("a span:contains('审核议价产品')").after('<sup class="label label-success">{$status_map["审核议价产品"]}</sup>');
+    $("a span:contains('审核组评审')").after('<sup class="label label-success">{$status_map["审核组评审"]}</sup>');
 
     
 JS;
