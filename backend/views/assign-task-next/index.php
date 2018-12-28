@@ -75,9 +75,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
-                'attribute'=>'is_assign',
+                'attribute'=>'is_assign_a',
                 'value' => function($model) {
-                    if($model->is_assign==1){
+                    if($model->is_assign_a==1){
                         return '是';
                     }else{
                         return '否';
@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'是否分配'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
             'member',

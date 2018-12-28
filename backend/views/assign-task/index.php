@@ -8,7 +8,7 @@ use kartik\daterange\DateRangePicker;
 /* @var $searchModel backend\models\PurInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '分配评审任务');
+$this->title = Yii::t('app', '分配产品');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">

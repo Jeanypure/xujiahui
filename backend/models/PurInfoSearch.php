@@ -18,7 +18,7 @@ class PurInfoSearch extends PurInfo
     public function rules()
     {
         return [
-            [['is_submit','source','pur_info_id', 'pur_group', 'pd_purchase_num', 'hs_code', 'parent_product_id'], 'integer'],
+            [['is_assign_a','is_submit','source','pur_info_id', 'pur_group', 'pd_purchase_num', 'hs_code', 'parent_product_id'], 'integer'],
             [['pd_create_time','master_mark','master_result','brocast_status','member','purchaser','pd_title', 'pd_title_en',
                 'pd_pic_url', 'pd_package', 'pd_length', 'pd_width', 'pd_height', 'is_huge', 'pd_material', 'has_shipping_fee',
                 'profit_rate', 'bill_type', 'bill_tax_rebate', 'bill_rebate_amount', 'no_rebate_amount', 'retail_price', 'ebay_url',
@@ -93,6 +93,7 @@ class PurInfoSearch extends PurInfo
             'pd_purchase_num' => $this->pd_purchase_num,
             'pd_pur_costprice' => $this->pd_pur_costprice,
             'hs_code' => $this->hs_code,
+            'is_assign_a' => $this->is_assign_a,
             'parent_product_id' => $this->parent_product_id,
         ]);
 
