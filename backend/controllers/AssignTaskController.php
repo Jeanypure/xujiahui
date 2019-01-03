@@ -178,11 +178,7 @@ class AssignTaskController extends Controller
                 $arr[] = $new_array;
                 array_push($arr,['Becky',$value]);
             }
-            try{//分配的同时 preview无此产品 插入  存在则更新preview表
-                $res = Yii::$app->db->createCommand()->batchInsert($table,$arr_key,$arr)->execute();
-            }catch(Exception $e){
-                throw new Exception();
-            }
+
             $count_num = Yii::$app->db->createCommand("
             select count(*) as number from `preview` where `product_id` in ($ids_str) 
             and `member2` in ( SELECT p.`purchaser` from `purchaser` p  WHERE  p.`role` =1 or p.`role`=2 )
