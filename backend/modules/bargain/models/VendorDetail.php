@@ -33,7 +33,7 @@ class VendorDetail extends \yii\db\ActiveRecord
      */
     public static function getDb()
     {
-        return Yii::$app->get('db');
+        return Yii::$app->get('db2');
     }
 
     /**
