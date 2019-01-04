@@ -131,8 +131,10 @@ class AuditGoodsskuController extends Controller
                     g.declaration_item_key5,g.declaration_item_value5,g.declaration_item_key6,g.declaration_item_value6,
                     g.declaration_item_key7,g.declaration_item_value7,g.declaration_item_key8,g.declaration_item_value8,
                     g.declaration_item_key9,g.declaration_item_value9,g.material,g.use,
-                    s.brand,s.bill_name,s.bill_unit,s.origin_code
+                    s.brand,s.bill_name,s.bill_unit,s.origin_code,
+                    o.url_1688
                     FROM goodssku g LEFT JOIN sku_vendor s ON g.sku_id=s.sku_id  AND g.vendor_code = s.vendor_code  
+                    LEFT JOIN pur_info o ON o.pur_info_id=g.pur_info_id
                 where  g.sku_id = $id ";
        $result =  Yii::$app->db->createCommand("$sql")->queryAll();
        $is_quantity_check = empty($result[0]['is_quantity_check'])?'F':'T';
@@ -197,6 +199,7 @@ class AuditGoodsskuController extends Controller
            'custitemm_material' => $result[0]['material'],
            'custitemm_purpose' => $result[0]['use'],
            'salesdescription' => $result[0]['pd_title'],
+           'custitem_cs_1688linkurl' => $result[0]['url_1688'],
        ]];
         $result = $this->actionDoCurl($item_arr);
         $res = json_decode($result);
