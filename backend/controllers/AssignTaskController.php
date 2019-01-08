@@ -201,8 +201,9 @@ class AssignTaskController extends Controller
                     $update_member = Yii::$app->db->createCommand("
                     update `pur_info` set `saler`= '$member' ,`is_assign`=1   where pur_info_id in ($ids_str);
                     ")->execute();
+                    //TODO 重新分配 在销售部中间分配
                     $preview_member2 = Yii::$app->db->createCommand("
-                    update `preview` set `member2`= '$member'  where preview_id in  ($preid);
+                    update `preview` set `member2`= '$member'  where preview_id in  ($preid) and `member2` not in ('$member','Becky');
                     ")->execute();
                 }
                 catch(Exception $e){
