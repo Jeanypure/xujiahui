@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions'=>['allowClear'=>true],
                 ],
                 'filterInputOptions'=>['placeholder'=>'部门'],
-                'group'=>true,  // enable grouping
+//                'group'=>true,  // enable grouping
 
             ],
 
