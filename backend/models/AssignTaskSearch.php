@@ -101,6 +101,7 @@ class AssignTaskSearch extends PurInfo
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'is_assign' => $this->is_assign,
             'parent_product_id' => $this->parent_product_id,
+            'is_assign_a' => $this->is_assign_a
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
