@@ -124,6 +124,7 @@ class AuditSearch extends PurInfo
             'hs_code' => $this->hs_code,
             'bill_tax_rebate' => $this->bill_tax_rebate,
             'parent_product_id' => $this->parent_product_id,
+            'submit_leader' => $this->submit_leader,
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
