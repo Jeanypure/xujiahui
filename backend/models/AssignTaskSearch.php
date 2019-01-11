@@ -50,6 +50,7 @@ class AssignTaskSearch extends PurInfo
             $query = PurInfo::find()
                 ->andwhere(['is_submit'=>1])
                 ->andWhere(['audit_b'=>1])
+                ->andWhere(['audit_a'=>0])//审核组未提交的
                 ->andwhere(['not',['purchaser'=>'null']])
                 ->orderBy('pur_info_id desc')
             ;

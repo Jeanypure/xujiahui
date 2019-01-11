@@ -7,7 +7,6 @@ use Yii;
 use backend\models\PurInfo;
 use backend\models\JuniorAuditSearch;
 use backend\models\Preview;
-//use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -55,7 +54,7 @@ class JuniorAuditController extends Controller
      */
     public function actionView($id)
     {
-
+        $model = $this->findModel($id);
         $preview = Preview::find()
                     ->where(['product_id'=>$id])
                     ->andWhere(['<>','member2','Becky'])
@@ -74,16 +73,20 @@ class JuniorAuditController extends Controller
             ->andWhere(['member2' => 'Becky'])
             ->one();
         $exchange_rate = PurInfoController::actionExchangeRate();
-
-        if($model_update->load(Yii::$app->request->post())) {
+        $post = Yii::$app->request->post();
+        if($model_update->load($post)) {
                 $model_update->view_status = 1;
                 $model_update->submit_manager = 1;
                 $model_update->priview_time = date('Y-m-d H:i:s');
+                if($post['Preview']['result'] == 0){ //Becky 直接拒绝 审核组不要评审了
+                  $model->audit_a = 1;
+                  $model->save(false);
+                }
                 $model_update->save(false);
                 return $this->redirect(['index']);
             }
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
                 'preview' => $preview,
                 'model_update' =>$model_update,
                 'exchange_rate' =>$exchange_rate,
