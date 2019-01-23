@@ -224,7 +224,7 @@ class JuniorPurInfoController extends Controller
         $id = $_POST['id'];
         $res =  Yii::$app->db->createCommand("
             update pur_info set audit_a=0,audit_b=0,audit_c=0,preview_status=0 where pur_info_id=$id;
-            update preview  set view_status = 0, submit_manager = 0 where product_id=$id;
+            update preview  set view_status = 0, submit_manager = 0,submit_leader=0 where product_id=$id;
         ")->execute();
 
         if($res){
