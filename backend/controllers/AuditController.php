@@ -205,7 +205,7 @@ class AuditController extends Controller
         $ids_str = trim($product_ids,',');
 //        $result = $this->actionAuditStatus($username,$ids_str,$tag);
         $sql1 = " update `preview` set `submit_leader`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
-            update `pur_info` set `audit_c` = 1 where  `pur_info_id` in ($ids_str);";
+            update `pur_info` set `audit_b` = 1 where  `pur_info_id` in ($ids_str);";
         $sql2 = " update `preview` set `submit_manager`= 1  where `product_id` in ($ids_str) and  member2='$username' ;
             update `pur_info` set `audit_a` = 1 where  `pur_info_id` in ($ids_str);";
         if(array_key_exists('审核组',$userRole)){
@@ -240,7 +240,7 @@ class AuditController extends Controller
         if(isset($ids)&&!empty($ids)){
             $res = Yii::$app->db->createCommand("
             update `preview` set `submit_leader`= 0  where `product_id` in ($ids_str) and  member2='$username';
-            update `pur_info` set `audit_c` = 0  where  `pur_info_id` in ($ids_str);
+            update `pur_info` set `audit_b` = 0  where  `pur_info_id` in ($ids_str);
             ")->execute();
             if($res){
                 echo 'success';
