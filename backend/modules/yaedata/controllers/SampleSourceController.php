@@ -56,7 +56,6 @@ SELECT  o.purchaser,count(purchaser) as total ,
 			GROUP BY pur_group
 ) aa 
 ORDER BY aa.total DESC";
-        echo $sql;die;
         $res = Yii::$app->db->createCommand($sql)->queryAll();
         if(!empty($res)){
             $purchase =  array_column($res,'purchaser');
