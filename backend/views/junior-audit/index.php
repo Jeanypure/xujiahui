@@ -105,10 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
-                'attribute'=>'audit_c',
+                'attribute'=>'audit_b',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model['audit_c']==1){
+                    if($model['audit_b']==1){
                         return '是';
 
                     }else{
@@ -141,10 +141,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions'=>['placeholder'=>'是否提交'],
             ],
             [
-                'attribute'=>'audit_b',
+                'attribute'=>'audit_c',
                 'width'=>'100px',
                 'value'=>function ($model, $key, $index, $widget) {
-                    if($model['audit_b']==1){
+                    if($model['audit_c']==1){
                         return '是';
 
                     }else{
