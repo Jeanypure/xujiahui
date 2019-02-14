@@ -44,18 +44,19 @@ SELECT  o.purchaser,count(purchaser) as total ,
 
 			UNION 
 			SELECT o.purchaser,  count(purchaser) as total,'purchase' as result_type
-			FROM  pur_info o 
-			WHERE o.is_purchase='1' 
-			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
+			FROM  pur_info o LEFT JOIN sample e ON e.spur_info_id=o.pur_info_id
+			WHERE e.is_purchase='1' 
+			AND  DATE_FORMAT(e.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
 			GROUP BY purchaser
 			UNION
 			SELECT pur_group AS purchaser , count(pur_group) as total,'group' as result_type
-			FROM  pur_info o 
-			WHERE o.is_purchase='1' 
-			AND  DATE_FORMAT(o.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
+			FROM  pur_info o LEFT JOIN sample e ON e.spur_info_id=o.pur_info_id
+			WHERE e.is_purchase='1' 
+			AND  DATE_FORMAT(e.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
 			GROUP BY pur_group
 ) aa 
 ORDER BY aa.total DESC";
+        echo $sql;die;
         $res = Yii::$app->db->createCommand($sql)->queryAll();
         if(!empty($res)){
             $purchase =  array_column($res,'purchaser');
