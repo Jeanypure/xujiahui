@@ -224,6 +224,7 @@ class PurInfoController extends Controller
 
     /**
      * @throws \yii\db\Exception
+     * 采购重新提交
      */
 
     public function  actionAssessment(){
@@ -231,7 +232,7 @@ class PurInfoController extends Controller
         try{
             $res =  Yii::$app->db->createCommand("
             update pur_info set audit_a=0,audit_b=0,audit_c=0,preview_status=0 where pur_info_id=$id;
-            update preview  set view_status = 0, submit_manager = 0,submit_leader=0 where product_id=$id;
+            update preview  set view_status=0, submit_manager=0,submit_leader=0 where product_id=$id;
         ")->execute();
 
         }catch (\Exception $exception){
