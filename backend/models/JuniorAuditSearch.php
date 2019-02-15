@@ -121,7 +121,8 @@ class JuniorAuditSearch extends PurInfo
             'has_pay' => $this->has_pay,
             'is_quality' => $this->is_quality,
             'audit_c' =>$this->audit_c,
-            'submit_manager' => $this->submit_manager
+            'submit_manager' => $this->submit_manager,
+            'view_status' => $this->view_status
         ]);
 
         $query->andFilterWhere(['like', 'purchaser', $this->purchaser])
