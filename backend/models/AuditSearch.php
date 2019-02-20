@@ -69,7 +69,7 @@ class AuditSearch extends PurInfo
                 ->andWhere(['audit_b'=>1]) //杭州经理提交
                 ->orderBy('pur_info_id desc');
             $this->submit_manager = 0;
-            ;
+            $this->view_status = 0;
         }else{
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager'])
