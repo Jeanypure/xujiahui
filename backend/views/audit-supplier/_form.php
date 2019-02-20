@@ -349,10 +349,10 @@ $tupian_address = <<<JS
         bank_account_data = $('#yaesupplier-bank_account_data').val();
         bill_img1 = $('#yaesupplier-bill_img1').val();
         bill_img2 = $('#yaesupplier-bill_img2').val();
-        $('#yaesupplier-bl_img_address').val('http://yaemart.com.cn/'+business_licence);
-        $('#yaesupplier-bank_img_add').val('http://yaemart.com.cn/'+bank_account_data);
-        $('#yaesupplier-bill01_img_add').val('http://yaemart.com.cn/'+bill_img1);
-        $('#yaesupplier-bill02_img_add').val('http://yaemart.com.cn/'+bill_img2);
+        $('#yaesupplier-bl_img_address').val('http://eaymall.com/'+business_licence);
+        $('#yaesupplier-bank_img_add').val('http://eaymall.com/'+bank_account_data);
+        $('#yaesupplier-bill01_img_add').val('http://eaymall.com/'+bill_img1);
+        $('#yaesupplier-bill02_img_add').val('http://eaymall.com/'+bill_img2);
         
         
         
