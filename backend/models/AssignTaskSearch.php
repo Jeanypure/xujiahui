@@ -71,7 +71,7 @@ class AssignTaskSearch extends PurInfo
                 'pagesize' => '10',
             ]
         ]);
- echo $query->createCommand()->getRawSql();die;
+// echo $query->createCommand()->getRawSql();die;
         $this->load($params);
 
         if (!$this->validate()) {
