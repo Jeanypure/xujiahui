@@ -66,7 +66,7 @@ class AuditSearch extends PurInfo
                 ->andWhere(['member'=>$member])
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['member2'=>$member])
-                ->andWhere(['audit_b'=>1]) //杭州经理提交
+                ->andWhere(['audit_c'=>1]) //杭州经理提交audit_c
                 ->orderBy('pur_info_id desc');
             $this->submit_manager = 0;
             $this->view_status = 0;
