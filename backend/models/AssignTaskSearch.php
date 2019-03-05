@@ -49,7 +49,7 @@ class AssignTaskSearch extends PurInfo
         if(array_key_exists('审核组',$userRole)){
             $query = PurInfo::find()
                 ->andwhere(['is_submit'=>1])
-                ->andWhere(['audit_b'=>1])
+                ->Where(['or','audit_b'=>1,'audit_c'=>1])
                 ->andWhere(['audit_a'=>0])//审核组未提交的
                 ->andwhere(['not',['purchaser'=>'null']])
                 ->orderBy('pur_info_id desc')
@@ -71,7 +71,7 @@ class AssignTaskSearch extends PurInfo
                 'pagesize' => '10',
             ]
         ]);
-
+ echo $query->createCommand()->getRawSql();die;
         $this->load($params);
 
         if (!$this->validate()) {
