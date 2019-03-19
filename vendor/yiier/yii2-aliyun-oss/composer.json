@@ -1,0 +1,22 @@
+{
+    "name": "yiier/yii2-aliyun-oss",
+    "description": "Yii2 阿里云 OSS",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","AliyunOSS","OSS"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "forecho",
+            "email": "caizhenghai@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "aliyuncs/oss-sdk-php": ">2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "yiier\\AliyunOSS\\": ""
+        }
+    }
+}
