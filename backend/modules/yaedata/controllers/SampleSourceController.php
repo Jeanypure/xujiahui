@@ -59,8 +59,7 @@ SELECT r.purchaser,IFNULL(t1.total,0) as total ,'purchase' as result_type from p
 			GROUP BY pur_group
 ) aa 
 ORDER BY aa.total DESC";
-//        $res = Yii::$app->db->createCommand($sql)->queryAll();
-        echo $sql;die;
+        $res = Yii::$app->db->createCommand($sql)->queryAll();
         if(!empty($res)){
             $purchase =  array_column($res,'purchaser');
             foreach($res as $key=>$value){
