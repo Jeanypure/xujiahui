@@ -50,7 +50,7 @@ SELECT r.purchaser,IFNULL(t1.total,0) as total ,'purchase' as result_type from p
 			WHERE e.is_purchase='1' 
 			AND  DATE_FORMAT(e.sure_purchase_time,'%Y-%m-%d') between  '$firstday' and '$lastday'
 			GROUP BY purchaser
-) t1   ON t1.purchaser = r.purchaser where sku_code1 is NOT NULL AND sku_code1<> '' AND ha			
+) t1   ON t1.purchaser = r.purchaser where sku_code1 is NOT NULL AND sku_code1<> '' AND has_used=1  			
 			UNION
 			SELECT pur_group AS purchaser , count(pur_group) as total,'group' as result_type
 			FROM  pur_info o LEFT JOIN sample e ON e.spur_info_id=o.pur_info_id
@@ -59,7 +59,8 @@ SELECT r.purchaser,IFNULL(t1.total,0) as total ,'purchase' as result_type from p
 			GROUP BY pur_group
 ) aa 
 ORDER BY aa.total DESC";
-        $res = Yii::$app->db->createCommand($sql)->queryAll();
+//        $res = Yii::$app->db->createCommand($sql)->queryAll();
+        echo $sql;die;
         if(!empty($res)){
             $purchase =  array_column($res,'purchaser');
             foreach($res as $key=>$value){
