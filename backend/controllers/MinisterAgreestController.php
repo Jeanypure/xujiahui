@@ -178,8 +178,9 @@ class MinisterAgreestController extends Controller
 
     public function actionQuality($id)
     {
-        $model = $this->findModel($id);
-        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+
+        $sample_model = Sample::findOne(['sample_id'=>$id]);
+        $model = PurInfo::findOne(['pur_info_id'=>$sample_model->spur_info_id]);
         $post = Yii::$app->request->post();
         if($sample_model->load($post)){
             $sample_model->attributes = $post['Sample'];
