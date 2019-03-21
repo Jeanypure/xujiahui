@@ -188,7 +188,7 @@ class MinisterAgreestController extends Controller
             if(isset($post['Sample']['is_purchase'])&&$post['Sample']['is_purchase']==1){
                 $sample_model->sure_purchase_time = date('Y-m-d H:i:s');
                     try{
-                        $sql = " SET @id = $id;
+                        $sql = " SET @id = $sample_model->spur_info_id;
                             CALL purinfo_to_goodssku (@id);";
                         $res = Yii::$app->db->createCommand($sql)->execute();
 
