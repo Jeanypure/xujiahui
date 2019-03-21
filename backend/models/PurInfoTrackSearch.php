@@ -47,34 +47,34 @@ class PurInfoTrackSearch extends PurInfo
         $username = Yii::$app->user->identity->username;
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         if(array_key_exists('超级管理员',$role)||array_key_exists('审核组',$role)){
-            $query = PurInfo::find()
+            $query = Sample::find()
                 ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                   `sample`.sample_submit1,`sample`.is_quality,`sample`.submit1_at,
+                    `sample`.sample_id,`sample`.sample_submit1,`sample`.is_quality,`sample`.submit1_at,
                    `sample`.payer,`sample`.has_pay,`sample`.pay_at,`sample`.submit2_at,`sample`.sample_return,
                    `sample`.is_purchase,
                     `sample`.write_date,`sample`.spur_info_id,`sample`.create_date,
                     `sample`.is_agreest,`sample`.pd_sku,`sample`.purchaser_result'])
-                ->joinWith('sample')
+                ->joinWith('purinfo')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
                 ->andWhere(['>=','create_date','2018-06-21 00:00:00'])
                 ->orderBy('pur_info_id desc')
 
             ;
         }else{
-            $query = PurInfo::find()
+            $query = Sample::find()
                 ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                     `sample`.sample_submit1,`sample`.is_quality,`sample`.submit1_at,
+                    `sample`.sample_id,`sample`.sample_submit1,`sample`.is_quality,`sample`.submit1_at,
                    `sample`.payer,`sample`.has_pay,`sample`.pay_at,`sample`.submit2_at,`sample`.sample_return,
                    `sample`.is_purchase,
                     `sample`.write_date, `sample`.spur_info_id,`sample`.create_date,`sample`.is_agreest,`sample`.pd_sku,
                     `sample`.purchaser_result'])
-                ->joinWith('sample')
+                ->joinWith('purinfo')
                 ->andWhere(['not',['sample.spur_info_id'=>null]])
                 ->andWhere(['purchaser'=>$username])
                 ->orFilterWhere(['old_purchaser'=>$username])
@@ -83,8 +83,6 @@ class PurInfoTrackSearch extends PurInfo
             ;
         }
         $this->sample_submit1 = 0;
-//
-//            echo  $query->createCommand()->getRawSql();die;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

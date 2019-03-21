@@ -54,7 +54,9 @@ class MinisterAgreestController extends Controller
      */
     public function actionView($id)
     {
-        $sample_model = Sample::findOne(['spur_info_id'=>$id]);
+
+        $sample_model = Sample::findOne(['sample_id'=>$id]);
+        $model = PurInfo::findOne(['pur_info_id'=>$sample_model->spur_info_id]);
         $submit2_at = date('Y-m-d H:i:s');
         $post = Yii::$app->request->post();
         if(isset($sample_model)&&!empty($sample_model)){
@@ -71,12 +73,12 @@ class MinisterAgreestController extends Controller
 
              }
             return $this->renderAjax('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
                 'sample_model' => $sample_model,
             ]);
         }else{
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' =>$model,
             ]);
         }
 
