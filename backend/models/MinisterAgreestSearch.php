@@ -49,31 +49,31 @@ class MinisterAgreestSearch extends PurInfo
         $pur_group = $res['id']??'';
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
         if( array_key_exists('超级管理员',$role)){
-            $query = PurInfo::find()
+            $query = Sample::find()
                 ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `sample`.sample_submit2,`sample`.is_quality,`sample`.submit2_at,`sample`.is_purchase,`sample`.submit2_at,
+                    `sample`.sample_id,`sample`.sample_submit2,`sample`.is_quality,`sample`.submit2_at,`sample`.is_purchase,`sample`.submit2_at,
                     `sample`.submit1_at,`sample`.sample_return,`sample`.has_pay,`sample`.payer,`sample`.pay_at,  
                     `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free,`sample`.has_arrival,`sample`.minister_result,`sample`.pd_sku,`sample`.write_date'
                 ])
-                ->joinWith('sample')
+                ->joinWith('purinfo')
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')
             ;
 
 //            $this->is_agreest = 2;
         }else{ //按部门显示
-            $query = PurInfo::find()
+            $query = Sample::find()
                 ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `sample`.sample_submit2,`sample`.is_quality,`sample`.submit2_at,`sample`.is_purchase,`sample`.submit2_at,
+                    `sample`.sample_id,`sample`.sample_submit2,`sample`.is_quality,`sample`.submit2_at,`sample`.is_purchase,`sample`.submit2_at,
                     `sample`.submit1_at,`sample`.sample_return,`sample`.has_pay,`sample`.payer,`sample`.pay_at,   
                     `sample`.spur_info_id,`sample`.is_agreest,`sample`.for_free,`sample`.has_arrival,`sample`.minister_result,`sample`.pd_sku,`sample`.write_date'])
-                ->joinWith('sample')
+                ->joinWith('purinfo')
                 ->andWhere(['pur_group'=>$pur_group])
                 ->andWhere(['sample_submit1'=>1])
                 ->orderBy('pur_info_id desc')

@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\PurInfo;
+use backend\models\Sample;
 
 /**
  * FinancialAgreestSearch represents the model behind the search form of `backend\models\PurInfo`.
@@ -42,15 +43,15 @@ class FinancialAgreestSearch extends PurInfo
      */
     public function search($params)
     {
-        $query = PurInfo::find()
+        $query = Sample::find()
             ->select(['
                     `pur_info`.pur_info_id,
                     `pur_info`.pd_title,`pur_info`.pd_title_en,`pur_info`.purchaser,`pur_info`.pd_pic_url,
                     `pur_info`.pur_group,`pur_info`.master_result,`pur_info`.master_mark,
-                    `sample`.payer,`sample`.pay_at,`sample`.has_pay,`sample`.sample_return, 
+                    `sample`.sample_id,`sample`.payer,`sample`.pay_at,`sample`.has_pay,`sample`.sample_return, 
                     `sample`.pay_amount,`sample`.pd_sku,`sample`.for_free'
             ])
-            ->joinWith('sample')
+            ->joinWith('purinfo')
         ->andWhere(['sample_submit1'=>1])
         ->andWhere(['sample_submit2'=>1])
         ->andWhere(['is_agreest'=>1])

@@ -29,6 +29,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class Sample extends \yii\db\ActiveRecord
 {
+    public $pur_info_id,$pd_pic_url,$purchaser,$pur_group,$pd_title,$pd_title_en,$master_result,$master_mark;
     /**
      * {@inheritdoc}
      */
@@ -92,6 +93,13 @@ class Sample extends \yii\db\ActiveRecord
             'purchaser_result' => '采购判断',
             'audit_team_reason' => '审核组备注',
             'pd_sku' => 'SKU',
+            'purchaser' => '采购人',
+            'pur_group' => '部门号',
+            'pd_title' => '中文简称',
+            'pd_title_en' => '英文全称',
+            'sample_submit1' => '提交部长',
+            'sample_submit2' => '提交财务',
+            'is_quality' => '样品质量是否合格',
 
         ];
     }
@@ -111,6 +119,18 @@ class Sample extends \yii\db\ActiveRecord
                 'value' => date('Y-m-d H:i:s')
             ]
         ];
+    }
+
+    /**
+     * 一个产品多个采购跟单申请
+     *
+     */
+
+    public function getPurinfo()
+    {
+        //第一个参数为要关联的子表模型类名，
+        //第二个参数指定 通过子表的 spur_info_id，关联主表的pur_info_id字段
+        return $this->hasMany(Purinfo::className(), ['pur_info_id' => 'spur_info_id']);
     }
 }
 
