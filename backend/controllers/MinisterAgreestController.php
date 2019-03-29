@@ -220,11 +220,11 @@ class MinisterAgreestController extends Controller
                     }
 
                     $count = Yii::$app->db->createCommand("
-                            select count(*) as num from headman where product_id=$id
+                            select count(*) as num from headman where product_id=$sample_model->spur_info_id
                             ")->queryOne();
 
                     if(empty($count['num'])){ //第一次 插入
-                        $this->actionToHeadman($id);
+                        $this->actionToHeadman($sample_model->spur_info_id);
                     }
 
             }
@@ -249,9 +249,8 @@ class MinisterAgreestController extends Controller
      * 插入到组长评审表中
      */
         public  function actionToHeadman($id){
-
            $group =  Yii::$app->db->createCommand("
-                select pur_group from pur_info where  pur_info_id = $id
+                select pur_group from pur_info where  pur_info_id = $id 
             ")->queryOne();
 
             $no_site = Yii::$app->db->createCommand("
@@ -268,8 +267,7 @@ class MinisterAgreestController extends Controller
             $men_site = Yii::$app->db->createCommand("
                 select  code as purchaser,$id as id,purchaser as site from purchaser where  purchaser in($str_site)
             ")->queryAll();
-
-
+             $arr =[];
             foreach ($men_site as $key=>$value){
                 $arr[] =  array_values($value);
             }
