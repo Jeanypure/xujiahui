@@ -23,6 +23,7 @@ use kartik\datetime\DateTimePicker;
         'attributes'=>[       // 3 column layout
             'supplier_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_name'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
+            'credit_code'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
             'supplier_address'=>['type'=>Form::INPUT_TEXT, 'options'=>['placeholder'=>'']],
 
         ],
