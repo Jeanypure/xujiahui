@@ -53,7 +53,7 @@ class AuditSearch extends PurInfo
             $query = PurInfo::find()
                 ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.submit_leader,`preview`.result'])
                 ->joinWith('preview')
-                ->andWhere(['saler'=> $member])
+//                ->andWhere(['saler'=> $member])
                 ->andWhere(['is_submit'=>1])
                 ->andWhere(['member2'=>$member])
                 ->orderBy('pur_info_id desc')
@@ -80,8 +80,8 @@ class AuditSearch extends PurInfo
             ;
         }
 //        echo $query->createCommand()->getRawSql(); die;
-//        $this->view_status = 0;
-//        $this->submit_leader = 0;
+        $this->view_status = 0;
+        $this->submit_leader = 0;
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
