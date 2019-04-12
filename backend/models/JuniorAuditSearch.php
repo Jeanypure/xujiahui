@@ -46,9 +46,9 @@ class JuniorAuditSearch extends PurInfo
             ->select(['`pur_info`.*,`preview`.view_status,`preview`.submit_manager,`preview`.submit_leader,`preview`.result'])
             ->joinWith('preview')
             ->andWhere(['is_submit'=>1])
-            ->andWhere(['member2'=>'Becky'])
+            ->andWhere(['member2'=>'Bianca'])
             ->orderBy('pur_info_id desc');
-        $this->audit_c = 1;
+        $this->audit_b = 1;
 
         // add conditions that should always apply here
 

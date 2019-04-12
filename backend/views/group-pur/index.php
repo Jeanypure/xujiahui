@@ -19,12 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::button('确认公示', ['id' => 'brocast', 'class' => 'btn btn-primary']) ;?>
         <?=  Html::button('公示结束', ['id' => 'end-brocast', 'class' => 'btn btn-info']) ?>
-        <?= Html::a('<button class="btn btn-warning">分配评审任务</button>', '#', [
+        <?php
+        /*echo Html::a('<button class="btn btn-warning">分配评审任务</button>', '#', [
             'title' => '评审任务分配',
             'data-toggle' => 'modal',
             'data-target' => '#audit-modal',
             'class' => 'data-audit',
-        ] );
+        ] );*/
         ?>
 
     </p>

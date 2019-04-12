@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $searchModel backend\models\MangerAuditSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', '杭州评审');
+$this->title = Yii::t('app', '销售经理评审');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pur-info-index">

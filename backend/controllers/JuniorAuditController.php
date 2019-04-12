@@ -57,7 +57,7 @@ class JuniorAuditController extends Controller
         $model = $this->findModel($id);
         $preview = Preview::find()
                     ->where(['product_id'=>$id])
-                    ->andWhere(['<>','member2','Becky'])
+                    ->andWhere(['<>','member2','Bianca'])
                     ->one();
         $leader =  Yii::$app->db->createCommand("
                    select sub_company, leader from `company`
@@ -70,7 +70,7 @@ class JuniorAuditController extends Controller
 
         $model_update = Preview::find()
             ->where(['product_id'=>$id])
-            ->andWhere(['member2' => 'Becky'])
+            ->andWhere(['member2' => 'Bianca'])
             ->one();
         $exchange_rate = PurInfoController::actionExchangeRate();
         $post = Yii::$app->request->post();
@@ -78,7 +78,7 @@ class JuniorAuditController extends Controller
                 $model_update->view_status = 1;
                 $model_update->submit_manager = 1;
                 $model_update->priview_time = date('Y-m-d H:i:s');
-                if($post['Preview']['result'] == 0){ //Becky 直接拒绝 审核组不要评审了
+                if($post['Preview']['result'] == 0){ //Bianca 直接拒绝 审核组不要评审了
                   $model->audit_a = 1;
                   $model->save(false);
                 }

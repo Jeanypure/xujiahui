@@ -274,6 +274,7 @@ class GroupPurController extends Controller
 
             foreach($member2_pid as $k=>$v){
                 $arr[] =array_values($v);
+                $arr[] = ['Bianca',$v['pur_info_id'],1]; //Bianca 评审所有产品
             }
 
             $table = 'preview';
