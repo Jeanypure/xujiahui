@@ -65,10 +65,14 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
+        $user = Yii::$app->user->identity->username;
         $post = Yii::$app->request->post();
+        $company_id = Yii::$app->db->createCommand("select company_id from `referee_company` where  referee = '$user'")
+            ->queryOne();
         if ($model->load($post) ) {
             $model->attributes = $post['Product'];
-            $model->creator = Yii::$app->user->identity->username;
+            $model->creator = $user;
+            $model->sub_company = $company_id['company_id'];
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->product_id]);
         }
