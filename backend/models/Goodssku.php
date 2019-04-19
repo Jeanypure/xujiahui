@@ -71,7 +71,7 @@ class Goodssku extends yii\db\ActiveRecord
                 'pd_length','pd_width','pd_height','pd_weight','sale_company','hs_code',
                 'declaration_item_key1','declaration_item_key2','declaration_item_key3','declaration_item_key4','declaration_item_key5',
                 'declaration_item_value1','declaration_item_value2','declaration_item_value3','declaration_item_value4','declaration_item_value5',
-                'material','use',
+                'material','use','bill_img1_name_unit','bill_img1'
             ], 'required'],
 
 
