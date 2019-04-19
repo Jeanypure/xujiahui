@@ -145,6 +145,9 @@ class Goodssku extends yii\db\ActiveRecord
             'declaration_item_value9' => '要素值8',
             'material' => '材质',
             'use' => '用途',
+            'bill_img1_name_unit' => '发票01的开票品名和单位',
+            'bill_img1' => '发票照片',
+            'bill01_img_add' => '发票照片地址',
         ];
 
 
