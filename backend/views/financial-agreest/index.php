@@ -165,6 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ])
             ],
+
             [
                 'attribute'=>'sample_return',
                 'width'=>'100px',
@@ -223,7 +224,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'80%'
                 ],
             ],
-
+            'pay_way',
+            'mark'
 
         ],
     ]); ?>
