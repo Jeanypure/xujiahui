@@ -223,7 +223,7 @@ $tupian_address = <<<JS
     $(function(){
         var bill_img1;  //发票照片
         bill_img1 = $('#goodssku-bill_img1').val();
-        $('#goodssku-bill01_img_add').val('http://yaemart.com.cn/'+bill_img1);
+        $('#goodssku-bill01_img_add').val('http://47.244.60.89/'+bill_img1);
     })
 JS;
 $this->registerJs($tupian_address);
