@@ -37,8 +37,7 @@ use kartik\select2\Select2;
             <?php
             echo $form->field($model, 'sale_company')->widget(Select2::classname(), [
                 'data' => [
-                    '13'=>'杭州雅耶',
-                    '7'=>'朋侯',
+                    '3'=>'雅耶',
                 ],
                 'options' => ['placeholder' => '选择销售公司'],
                 'pluginOptions' => [
