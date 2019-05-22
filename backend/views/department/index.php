@@ -61,6 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'purchaser',
+            'creator',
             'product_title',
             [
                 'attribute'=>'product_title_en',
@@ -120,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'product_add_time:date',
             'product_update_time:date',
-            'creator',
+
 //            'product_status',
 //            'complete_status',
         ],
