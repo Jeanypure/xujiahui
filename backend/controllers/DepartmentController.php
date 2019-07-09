@@ -36,11 +36,8 @@ class DepartmentController extends Controller
      */
     public function actionIndex()
     {
-        $res = Company::find()->select('id,sub_company')
-                ->where("leader_id=".Yii::$app->user->identity->getId())->asArray()->one();
-        $sub_company = $res['sub_company']??'';
         $searchModel = new DepartmentSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$sub_company);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
