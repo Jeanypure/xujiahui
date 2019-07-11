@@ -299,7 +299,9 @@ class MinisterAgreestController extends Controller
             $hs_arr =  Yii::$app->db->createCommand($hs_code_sql)->queryOne();
             $hs_code_arr =  explode(',',$hs_arr['declaration_elements']);
             $column_key = ['declaration_item_key1','declaration_item_key2','declaration_item_key3','declaration_item_key4',
-                'declaration_item_key5','declaration_item_key6','declaration_item_key7','declaration_item_key8','declaration_item_key9','declaration_item_key10','declaration_item_key11','declaration_item_key12'];
+                'declaration_item_key5','declaration_item_key6','declaration_item_key7','declaration_item_key8',
+                'declaration_item_key9','declaration_item_key10','declaration_item_key11','declaration_item_key12',
+                'declaration_item_key13','declaration_item_key14','declaration_item_key15','declaration_item_key16'];
             if(!empty($hs_code_arr )){
                 foreach ($hs_code_arr as $key=>$value){
                     $attri = $column_key[$key];
