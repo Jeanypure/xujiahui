@@ -48,7 +48,6 @@ class AssignTaskSearch extends PurInfo
         $userRole = Yii::$app->authManager->getRolesByUser($userId);
         if(array_key_exists('审核组',$userRole)){
             $query = PurInfo::find()
-//                ->Where(['or',['audit_b'=>1],['audit_c'=>1]])  //
                 ->andwhere(['is_submit'=>1])
                 ->andWhere(['audit_c'=>1]) //杭州经理提交后再分配评审任务
                 ->andWhere(['audit_a'=>0])//审核组未提交的
